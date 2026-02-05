@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
-  const MAX_TIME = 600;
+  const MAX_TIME = 900;
 
   const [started, setStarted] = useState(
     sessionStorage.getItem("started") === "true"
@@ -59,39 +59,3 @@ export const GameProvider = ({ children }) => {
 export const useGame = () => useContext(GameContext);
 
 
-/*import { createContext, useContext, useEffect, useState } from "react";
-
-const GameContext = createContext();
-
-export const GameProvider = ({ children }) => {
-  const MAX_TIME = 600; // 10 minutes
-  const [timeLeft, setTimeLeft] = useState(MAX_TIME);
-  const [started, setStarted] = useState(false);
-  const [completed, setCompleted] = useState(false);
-
-  useEffect(() => {
-    if (!started || completed) return;
-
-    const timer = setInterval(() => {
-      setTimeLeft((t) => t - 1);
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [started, completed]);
-
-  return (
-    <GameContext.Provider value={{
-      timeLeft,
-      setTimeLeft,
-      started,
-      setStarted,
-      completed,
-      setCompleted,
-      MAX_TIME
-    }}>
-      {children}
-    </GameContext.Provider>
-  );
-};
-
-export const useGame = () => useContext(GameContext);*/

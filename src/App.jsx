@@ -36,3 +36,23 @@ export default function App() {
     </>
   );
 }
+
+
+/*> inspect-to-win@0.0.0 predeploy
+> npm run build
+
+
+> inspect-to-win@0.0.0 build
+> vite build
+
+(!) "base" option should start with a slash.
+vite v7.3.1 building client environment for production...
+✓ 57 modules transformed.
+dist/index.html                   0.55 kB │ gzip:  0.32 kB
+dist/assets/index-CGZOF9Zt.css    3.67 kB │ gzip:  1.29 kB
+dist/assets/index-ByNJg3yq.js   236.89 kB │ gzip: 75.94 kB
+✓ built in 507ms
+
+> inspect-to-win@0.0.0 deploy
+> gh-pages -d dist
+*/
