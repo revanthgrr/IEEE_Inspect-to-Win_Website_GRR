@@ -4,25 +4,28 @@ import { shuffle } from "../utils/shuffle";
 export default function QuestionPanel({ data, onCorrect, onAnswer }) {
   const [selected, setSelected] = useState(null);
   const [feedback, setFeedback] = useState(null); // 'correct' or 'wrong'
-  const [shuffledOptions, setShuffledOptions] = useState([]);
   const [isAnswering, setIsAnswering] = useState(false); // prevent double clicks
   const answerTimeoutRef = useRef(null); // Track timeout for cleanup
-
   /* --------------------------------
      SHUFFLE OPTIONS ONCE PER QUESTION
   --------------------------------- */
+  // Initialize with shuffled options immediately to prevent layout shift (empty options -> filled)
+  const [shuffledOptions, setShuffledOptions] = useState(() => shuffle(data.options));
+
+  // If data changes (though key prop usually handles this), update options
+  useEffect(() => {
+    // When data updates (if component is recycled), update options immediately or keep them if intended.
+    // Since we use a key prop in Game.jsx, this component usually Remounts, so the useState initializer handles it.
+    // But safely:
+    setShuffledOptions(shuffle(data.options));
+  }, [data]);
+
   useEffect(() => {
     setSelected(null);
     setFeedback(null);
     setIsAnswering(false);
 
-    // Small delay = smoother UX (optional but premium)
-    const t = setTimeout(() => {
-      setShuffledOptions(shuffle(data.options));
-    }, 300);
-
     return () => {
-      clearTimeout(t);
       // Clear any pending answer timeout when question changes
       if (answerTimeoutRef.current) {
         clearTimeout(answerTimeoutRef.current);
@@ -88,6 +91,7 @@ export default function QuestionPanel({ data, onCorrect, onAnswer }) {
 
   return (
     <div className="question-panel">
+      <h3 className="panel-label">Question</h3>
       <h2>{data.question}</h2>
 
       {shuffledOptions.map((option) => (
@@ -104,6 +108,7 @@ export default function QuestionPanel({ data, onCorrect, onAnswer }) {
       <button
         onClick={handleSubmit}
         className="submit-btn"
+        style={{ marginTop: "40px" }}
         disabled={!selected || isAnswering}
       >
         Submit

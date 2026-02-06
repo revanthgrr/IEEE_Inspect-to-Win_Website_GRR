@@ -39,18 +39,27 @@ export default function Game() {
   /* -------------------------------
      ICE BREAKER STATE
   -------------------------------- */
-  const [showIceBreaker, setShowIceBreaker] = useState(false);
+  const [showIceBreaker, setShowIceBreaker] = useState(
+    sessionStorage.getItem("iceBreakerActive") === "true"
+  );
 
   /* -------------------------------
-     PERSIST INDEX ON CHANGE
+     PERSIST STATE ON CHANGE
   -------------------------------- */
   useEffect(() => {
     sessionStorage.setItem("currentIndex", index);
-  }, [index]);
+    sessionStorage.setItem("iceBreakerActive", showIceBreaker);
+  }, [index, showIceBreaker]);
 
   /* -------------------------------
      AUTO DISQUALIFY IF TIME UP
   -------------------------------- */
+  useEffect(() => {
+    if (showIceBreaker) {
+      setIsPaused(true);
+    }
+  }, [showIceBreaker, setIsPaused]);
+
   useEffect(() => {
     if (timeLeft === 0) {
       setCompleted(true);

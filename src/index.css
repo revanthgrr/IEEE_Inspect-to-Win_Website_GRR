@@ -18,7 +18,8 @@ body {
   background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #dbeafe 100%);
   color: #1f2937;
   line-height: 1.6;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 a {
@@ -111,8 +112,8 @@ button {
 */
 
 .game-layout {
-  min-height: 100vh;
-  padding: 100px 48px 48px;
+  height: 100vh;
+  padding: 80px 48px 24px;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 32px;
@@ -132,6 +133,21 @@ button {
   flex-direction: column;
 }
 
+.panel-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #2563eb;
+  font-weight: 800;
+  margin-bottom: 16px;
+  display: inline-block;
+  background: #eff6ff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #dbeafe;
+  width: fit-content;
+}
+
 .question-panel h2 {
   font-size: 1.6rem;
   font-weight: 700;
@@ -148,8 +164,13 @@ button {
   transition: all 0.2s ease;
 }
 
-.question-panel button:hover {
-  background: #e0e7ff;
+.question-panel button:not(.submit-btn):hover {
+  background: #dbeafe;
+  transform: translateX(6px) scale(1.02);
+  border-left: 4px solid #2563eb;
+  padding-left: 14px;
+  /* Adjust padding to compensate for border if needed, or just let it shift */
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
 }
 
 .question-panel button.active {
@@ -180,7 +201,9 @@ button {
 }
 
 .submit-btn:hover {
-  opacity: 0.95;
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(34, 197, 94, 0.4);
 }
 
 /*
