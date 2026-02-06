@@ -35,11 +35,18 @@ export default function QuestionPanel({ data, onCorrect, onAnswer }) {
      HANDLE OPTION CLICK
   --------------------------------- */
   const handleOptionClick = (option) => {
-    if (isAnswering) return; // Prevent multiple clicks
-    setIsAnswering(true);
+    if (isAnswering) return; // Prevent selecting while answer is being processed
     setSelected(option);
+  };
 
-    const isCorrect = option === data.correct;
+  /* --------------------------------
+     HANDLE SUBMIT
+  --------------------------------- */
+  const handleSubmit = () => {
+    if (!selected || isAnswering) return; // Can't submit without selection
+    setIsAnswering(true);
+
+    const isCorrect = selected === data.correct;
 
     if (isCorrect) {
       setFeedback("correct");
@@ -60,8 +67,10 @@ export default function QuestionPanel({ data, onCorrect, onAnswer }) {
   };
 
   const getButtonClass = (option) => {
-    // If not answering yet, no special class
-    if (!isAnswering) return "";
+    // If not answering yet, show selected state
+    if (!isAnswering) {
+      return selected === option ? "active" : "";
+    }
 
     // Always highlight the correct answer in green
     if (option === data.correct) {
@@ -91,6 +100,14 @@ export default function QuestionPanel({ data, onCorrect, onAnswer }) {
           {option}
         </button>
       ))}
+
+      <button
+        onClick={handleSubmit}
+        className="submit-btn"
+        disabled={!selected || isAnswering}
+      >
+        Submit
+      </button>
     </div>
   );
 }
