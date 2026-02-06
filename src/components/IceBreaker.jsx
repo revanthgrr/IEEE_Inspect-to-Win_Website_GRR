@@ -270,6 +270,28 @@ export default function IceBreaker({ onComplete }) {
                 0 10px 20px rgba(167, 139, 250, 0.05);
         }
 
+        .skip-btn {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); 
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 10px 24px;
+            box-shadow: 0 4px 12px rgba(161, 140, 209, 0.3);
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .skip-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(161, 140, 209, 0.4);
+            filter: brightness(1.05);
+        }
+
         .action-btn {
             width: 100%;
             padding: 1rem;

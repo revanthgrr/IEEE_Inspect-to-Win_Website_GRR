@@ -222,6 +222,8 @@ button {
 .question-panel button.active {
   background: #2563eb;
   color: white;
+  border: 2px solid #2563eb;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 .question-panel button.correct {
